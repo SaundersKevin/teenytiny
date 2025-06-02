@@ -6,7 +6,7 @@ import Emitter
 import System.Environment (getArgs)
 
 main = do
- arg:args <- getArgs
+ arg:_ <- getArgs
  file <- readFile $ arg
- tokens = getTokens file
- emit $ parse tokens
+ let code = toC' $ toProgramTree [] $ getTokens file
+ writeFile "teeny.c" code
