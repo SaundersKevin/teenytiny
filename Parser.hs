@@ -65,4 +65,4 @@ ifFunc (params:tokenList) =
 
 printFunc :: [[Token]] -> ([Function], [[Token]])
 printFunc (((Token tokenData STRING):_):tokenList) = ([Function PRINT [ParamString (Token tokenData STRING)]], tokenList)
-printFunc (((Token tokenData IDENT):_):tokenList) = ([Function PRINT [ParamString (Token tokenData IDENT)]], tokenList)
+printFunc (((Token tokenData IDENT):_):tokenList) = ([Function PRINT [Ident (Token tokenData IDENT)]], tokenList)
