@@ -4,8 +4,12 @@ module Tokens
 , Token (..)
 , Code
 , isEqualTokenType
+, Variables
+, getData
 )
 where
+
+-- Deriving Show for debugging purposes --
 
 data TokenType = EOF 
                | NEWLINE 
@@ -38,7 +42,14 @@ type TokenData = String
 
 type Code = String
 
+type Variables = String
+
 data Token = Token TokenData TokenType deriving (Show)
 
+
+-- Helper Functions --
 isEqualTokenType :: Token -> Token -> Bool
 isEqualTokenType (Token _ a) (Token _ b) = a == b
+
+getData :: Token -> String
+getData (Token dat _) = dat
