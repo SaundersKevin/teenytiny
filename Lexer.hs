@@ -28,6 +28,7 @@ createTokens ('<':xs) =
   _     -> (Token "<" LESST):createTokens xs
 createTokens ('!':'=':xs) = (Token "!=" NOTEQ):createTokens xs
 createTokens (' ':xs) = createTokens xs
+createTokens ('\t':xs) = createTokens xs
 createTokens (x:xs)
  | x `elem` ['0'..'9'] =
     let (token,rest) = span (/= ' ') xs in (Token (x:token) NUMBER):createTokens rest
@@ -37,3 +38,4 @@ createTokens (x:xs)
     in (Token (x:token) tokentype):createTokens rest
  | x `elem` ['a'..'z'] =
     let (token,rest) = span (/= ' ') xs in (Token (x:token) IDENT):createTokens rest
+createTokens ('\t':xs) = createTokens xs

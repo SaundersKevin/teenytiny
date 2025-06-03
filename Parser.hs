@@ -50,7 +50,7 @@ whileFunc :: [[Token]] -> ([Function], [[Token]])
 whileFunc (params:tokenList) =
  let (equation1, compare:equation2) = split params
 
-     (whileLoopTokens, endWhile:remainingTokens) = span (not . isEqualTokenType (Token "ENDWHILE" ENDWHILE) . head) tokenList
+     (whileLoopTokens, endWhile:remainingTokens) = span (\token -> if token == [] then True else ( not . isEqualTokenType (Token "ENDWHILE" ENDWHILE) . head $ token)) tokenList
      whileProgramTree = toProgramTree [] whileLoopTokens
  in  if length params == 1 then ([Function WHILE [Boolean (head params), Tree whileProgramTree]], remainingTokens) else ([Function WHILE [Equation equation1, Compare compare, Equation equation2, Tree whileProgramTree]],remainingTokens)
 
@@ -58,7 +58,7 @@ ifFunc :: [[Token]] -> ([Function], [[Token]])
 ifFunc (params:tokenList) =
  let (equation1, compare:equation2) = split params
 
-     (ifLoopTokens, endIf:remainingTokens) = span (not . isEqualTokenType (Token "ENDWHILE" ENDWHILE) . head) tokenList
+     (ifLoopTokens, endIf:remainingTokens) = span (not . isEqualTokenType (Token "ENDIF" ENDIF) . head) tokenList
      ifProgramTree = toProgramTree [] ifLoopTokens
  in  if length params == 1 then ([Function IF [Boolean (head params), Tree ifProgramTree]], remainingTokens) else ([Function IF [Equation equation1, Compare compare, Equation equation2, Tree ifProgramTree]], remainingTokens)
 ------------

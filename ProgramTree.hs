@@ -24,3 +24,5 @@ data Parameter = Ident Token
                | Boolean Token
                | Expression Parameter Token Parameter
                deriving (Show)
+
+--data Conditional = 

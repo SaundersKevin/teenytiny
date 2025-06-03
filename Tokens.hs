@@ -42,9 +42,10 @@ type TokenData = String
 
 type Code = String
 
-type Variables = String
+type Variables = [String]
 
-data Token = Token TokenData TokenType deriving (Show)
+-- Eq needed for WHILE and IF
+data Token = Token TokenData TokenType deriving (Show, Eq)
 
 
 -- Helper Functions --
