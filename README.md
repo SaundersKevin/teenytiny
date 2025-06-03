@@ -8,3 +8,4 @@ This compiler uses C as it's target.
 
 # TODO
 - Add more explicit error messages
+- Fix handling blank lines in if and while statements
