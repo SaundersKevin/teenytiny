@@ -28,6 +28,8 @@ createTokens ('<':xs) =
   _     -> (Token "<" LESST):createTokens xs
 createTokens ('!':'=':xs) = (Token "!=" NOTEQ):createTokens xs
 createTokens (' ':xs) = createTokens xs
+-- GHC will complain about this line being redundant
+-- It is needed to account for tabs
 createTokens ('\t':xs) = createTokens xs
 createTokens (x:xs)
  | x `elem` ['0'..'9'] =

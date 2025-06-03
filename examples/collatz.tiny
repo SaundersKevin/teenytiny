@@ -1,0 +1,41 @@
+PRINT "Enter a number: "
+INPUT num
+
+PRINT "Here is the collatz for your number:"
+
+LABEL check
+
+PRINT num
+
+IF num == 1
+	GOTO end
+ENDIF
+
+LET a = num
+
+	WHILE num > 0
+
+	IF num == 2
+		GOTO even
+	ENDIF
+
+	IF num == 1
+		GOTO odd
+	ENDIF
+
+	LET num = num - 2
+
+ENDWHILE
+
+LABEL even
+	LET num = a
+	LET num = num / 2
+	GOTO check
+
+LABEL odd
+	LET num = a
+	LET num = 3 * num
+	LET num = num + 1
+	GOTO check
+
+LABEL end
