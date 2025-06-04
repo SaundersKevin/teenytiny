@@ -1,6 +1,7 @@
 dist
 dist-*
 cabal-dev
+teeny.c
 *.o
 *.hi
 *.hie

@@ -1,7 +1,11 @@
 PRINT "Enter a number: "
 INPUT num
 
-PRINT "Here is the collatz for your number:"
+PRINT "Here is the collatz sequence for your number:"
+
+IF num <= 0
+	GOTO end
+ENDIF
 
 LABEL check
 
@@ -13,27 +17,25 @@ ENDIF
 
 LET a = num
 
-	WHILE num > 0
+WHILE a > 0
 
-	IF num == 2
+	IF a == 2
 		GOTO even
 	ENDIF
 
-	IF num == 1
+	IF a == 1
 		GOTO odd
 	ENDIF
 
-	LET num = num - 2
+	LET a = a - 2
 
 ENDWHILE
 
 LABEL even
-	LET num = a
 	LET num = num / 2
 	GOTO check
 
 LABEL odd
-	LET num = a
 	LET num = 3 * num
 	LET num = num + 1
 	GOTO check
