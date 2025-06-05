@@ -1,0 +1,42 @@
+# Here is an example of using the stack to solve a problem
+
+PRINT "Enter the number of terms to compute:"
+INPUT num
+
+PRINT "Terms:"
+
+PUSH 1
+PRINT "1.00"
+
+IF num == 1
+	GOTO end
+ENDIF
+
+PUSH 1
+PRINT "1.00"
+
+IF num == 2
+	GOTO end
+ENDIF
+
+# Program adds together the top two of the stack, then pushes the previous and current term back on
+WHILE num > 2
+
+	POP a
+	POP b
+
+	LET c = a + b
+
+	PUSH a
+
+	PUSH c
+
+	LET num = num - 1
+
+	PRINT c
+
+ENDWHILE
+
+# For premature exiting of the program
+# This is a good way to handle errors
+LABEL end
