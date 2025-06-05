@@ -5,6 +5,32 @@ import ProgramTree
 import System.IO
 import Data.List
 
+{- Runtime - setting up stack and variables -- Something like this for the stack?
+#include <stdio.h>
+
+int main() {
+	float stack[32];
+	int stackpointer = 0
+
+	push(var) {
+		stack[stackpointer] = var
+		stackpointer++;
+	}
+
+	pop() {
+		return stack[stackpointer--];
+	}
+
+	peek() {
+		return stack[stackpointer];
+	}
+	
+	float ...;
+}
+
+
+-}
+
 toC':: ProgramTree -> Code
 toC' tree = 
  let (code,var) = toC ([],[]) tree
