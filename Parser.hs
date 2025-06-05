@@ -16,11 +16,24 @@ toProgramTree tree ((headToken:params):tokenList) =
   (Token _ GOTO)  -> let (function, remainingTokens) = gotoFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
   (Token _ INPUT) -> let (function, remainingTokens) = inputFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
   (Token _ IF)    -> let (function, remainingTokens) = ifFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
+  (Token _ POP)   -> let (function, remainingTokens) = popFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
+  (Token _ PUSH)  -> let (function, remainingTokens) = pushFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
+  (Token _ PEEK)  -> let (function, remainingTokens) = peekFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
+--_               -> Exeption "Failed in Parsing. Bad keyword?"
 -- Function -- Token is the first of the line (the command token)
 
 -- The returned function will take so many lines of the list to parse,
 -- parse them, and append the Function to the ProgramTree and return the rest of the
 -- tokens
+
+popFunc :: [[Token]] -> ([Function], [[Token]])
+popFunc ((ident:_):remainingTokens) = ([Function POP [Ident ident]], remainingTokens)
+
+pushFunc :: [[Token]] -> ([Function], [[Token]])
+pushFunc ((equation):remainingTokens) = ([Function PUSH [Equation equation]], remainingTokens)
+
+peekFunc :: [[Token]] -> ([Function], [[Token]])
+peekFunc ((ident:_):remainingTokens) = ([Function PEEK [Ident ident]], remainingTokens)
 
 inputFunc :: [[Token]] -> ([Function], [[Token]])
 inputFunc ((ident:_):remainingTokens) = ([Function INPUT [Ident ident]], remainingTokens)

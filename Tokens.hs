@@ -24,6 +24,9 @@ data TokenType = EOF
                | LET 
                | IF | THEN | ENDIF 
                | WHILE | REPEAT | ENDWHILE 
+               | POP
+               | PUSH
+               | PEEK
                
                | EQU 
                | PLUS 
