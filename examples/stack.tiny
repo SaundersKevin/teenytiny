@@ -1,0 +1,29 @@
+# teenytiny has a built in stack
+
+LET a = 1
+
+# PUSH pushes a value
+PUSH 1
+# This can include variables
+PUSH a
+
+PUSH a + 2
+
+# POP removes the top of the stack and assigns it to a variable
+
+# Gives a = 3
+POP a
+
+# Assigns a new variable num to 1
+POP num
+
+PRINT a
+PRINT num
+
+# PEEK assigns a variable to the top of the stack without removing it
+
+PEEK a
+PEEK num
+
+PRINT a
+PRINT num

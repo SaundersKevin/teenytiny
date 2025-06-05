@@ -1,17 +1,39 @@
-module Emitter (toC', toC) where
+module Emitter (toC') where
 
 import Tokens
 import ProgramTree
 import System.IO
 import Data.List
 
+-- Runtime - setting up stack and variables -- Something like this for the stack?
+runtime = "#include <stdio.h>\n#include <stdlib.h>\n#define STACK_SIZE 32\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(float var)\n{if (stackpointer >= STACK_SIZE){printf(\"Stack overflow (push)\");exit(1);}stack[stackpointer] = var;stackpointer++;}float pop() {if (stackpointer == 0){printf(\"Stack underflow (pop)\");exit(1);}stackpointer--;return stack[stackpointer];}float peek() {if (stackpointer == 0){printf(\"Stack underflow (peek)\");exit(1);}return stack[stackpointer];}float "
+
+
 toC':: ProgramTree -> Code
 toC' tree = 
  let (code,var) = toC ([],[]) tree
- in  "#include <stdio.h>\nint main() { float " ++ (unwords (intersperse "," var)) ++ ";" ++ code
+ in  runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
 
 toC :: (Code, Variables) -> ProgramTree -> (Code, Variables)
 toC (code, var) [] = (code ++ "}",var)
+
+-- STACK Functions --
+-- POP Function --
+toC (code, var) (Function POP ((Ident (Token ident IDENT)):[] ):tree) = 
+ let addCode = ident ++ " = pop();"
+     finalVar = if ident `elem` var then var else ident:var
+ in  toC (code ++ addCode, finalVar) tree
+
+-- PUSH Function --
+toC (code, var) (Function PUSH ((Equation equation):[] ):tree) =
+ let addCode = "push(" ++ (toEqC equation) ++ ");"
+ in  toC (code ++ addCode, var) tree
+
+-- PEEK Function --
+toC (code, var) (Function PEEK ((Ident (Token ident IDENT)):[] ):tree) =
+ let addCode = ident ++ " = peek();"
+     finalVar = if ident `elem` var then var else ident:var
+ in  toC (code ++ addCode, finalVar) tree
 
 -- STRING Functions --
 toC (code, var) (Function PRINT ((ParamString (Token str STRING)):[] ):tree) = 
