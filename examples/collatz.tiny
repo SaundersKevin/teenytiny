@@ -1,22 +1,31 @@
-PRINT "Enter a number: "
+# Printing statements is handled by PRINT string
+PRINT "Enter a number:"
+# Taking input is handled by INPUT variable_to_assign
+# As of <=1.1.0 INPUT has to be assigned to a new variable
 INPUT num
 
 PRINT "Here is the collatz sequence for your number:"
 
+# IF statements have to be ended with a ENDIF
 IF num <= 0
 	GOTO end
 ENDIF
 
+# Since functions are not supported, LABEL and GOTO are used
 LABEL check
 
+# PRINT can also print the value of variables
 PRINT num
 
 IF num == 1
 	GOTO end
 ENDIF
 
+# LET is used to assign variables to a value
+# if the variable doesn't exist it is created
 LET a = num
 
+# WHILE and IF are the only loops
 WHILE a > 0
 
 	IF a == 2
