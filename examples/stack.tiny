@@ -4,7 +4,7 @@ LET a = 1
 
 # PUSH pushes a value
 PUSH 1
-# This can include variables
+# This can include variables, if they are already defined
 PUSH a
 
 PUSH a + 2
