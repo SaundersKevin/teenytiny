@@ -46,8 +46,8 @@ toC (code, var) ( Function PRINT ((Ident (Token ident IDENT)):[] ):tree) =
 -- INPUT Function --
 toC (code, var) ( Function INPUT ((Ident (Token ident IDENT)):[] ):tree) = 
  let addCode = "scanf(\"%f\", &" ++ ident ++ ");"
-     addVar  = ident
- in  toC (code ++ addCode, addVar:var) tree
+     finalVar  = if ident `elem` var then var else ident:var
+ in  toC (code ++ addCode, finalVar) tree
 
 -- LABEL Function --
 toC (code, var) ( Function LABEL ((Ident (Token ident IDENT)):[] ):tree) =
