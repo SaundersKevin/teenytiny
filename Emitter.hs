@@ -6,13 +6,14 @@ import System.IO
 import Data.List
 
 -- Runtime - setting up stack and variables -- Something like this for the stack?
-runtime = "#include <stdio.h>\n#include <stdlib.h>\n#define STACK_SIZE 32\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(float var)\n{if (stackpointer >= STACK_SIZE){printf(\"Stack overflow (push)\");exit(1);}stack[stackpointer] = var;stackpointer++;}float pop() {if (stackpointer == 0){printf(\"Stack underflow (pop)\");exit(1);}stackpointer--;return stack[stackpointer];}float peek() {if (stackpointer == 0){printf(\"Stack underflow (peek)\");exit(1);}return stack[stackpointer];}float "
+header = "#include <stdio.h>\n#include <stdlib.h>\n#define STACK_SIZE "
+runtime = "\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(float var)\n{if (stackpointer >= STACK_SIZE){printf(\"Stack overflow (push)\");exit(1);}stack[stackpointer] = var;stackpointer++;}float pop() {if (stackpointer == 0){printf(\"Stack underflow (pop)\");exit(1);}stackpointer--;return stack[stackpointer];}float peek() {if (stackpointer == 0){printf(\"Stack underflow (peek)\");exit(1);}return stack[stackpointer];}float "
 
 
 toC':: ProgramTree -> Code
 toC' tree = 
  let (code,var) = toC ([],[]) tree
- in  runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
+ in  header ++ "32" ++ runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
 
 toC :: (Code, Variables) -> ProgramTree -> (Code, Variables)
 toC (code, var) [] = (code ++ "}",var)

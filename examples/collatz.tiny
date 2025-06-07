@@ -1,3 +1,7 @@
+SET evenNumber 2
+SET oddNumber 1
+# SET acts like "#define" in C. This has to be placed at the very top of your .tiny file before ANYTHING
+
 # Printing statements is handled by PRINT string
 PRINT "Enter a number:"
 # Taking input is handled by INPUT variable_to_assign
@@ -28,11 +32,11 @@ LET a = num
 # WHILE and IF are the only loops
 WHILE a > 0
 
-	IF a == 2
+	IF a == evenNumber
 		GOTO even
 	ENDIF
 
-	IF a == 1
+	IF a == oddNumber
 		GOTO odd
 	ENDIF
 
