@@ -19,7 +19,9 @@ All variables are stored as float values
 
 INPUT assigns user input to a given variable. As of <=1.1.0 this has to be a new variable
 
-The stack has a default size of 32. It is interacted with using POP, PUSH, and PEEK. POP will take the top off the stack and assigns the result to a variable. PUSH pushes a value onto the stack. PEEK assigns the value of the top of the stack to a variable.
+The stack has a default size of 32. Set the size of the stack with STACK. It is interacted with using POP, PUSH, and PEEK. POP will take the top off the stack and assigns the result to a variable. PUSH pushes a value onto the stack. PEEK assigns the value of the top of the stack to a variable.
+
+SET acts like #define in C. SET is orginized as SET label value
 
 See the examples/ folder for some example programs
 
