@@ -11,6 +11,9 @@ runtime = "\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(f
 
 
 toC':: ProgramTree -> Code
+toC' ((Function STACK [Number number]):tree) =
+ let (code,var) = toC ([],[]) tree
+ in header ++ (getData number) ++ runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
 toC' tree = 
  let (code,var) = toC ([],[]) tree
  in  header ++ "32" ++ runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
