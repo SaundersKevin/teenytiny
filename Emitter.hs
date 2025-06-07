@@ -6,13 +6,17 @@ import System.IO
 import Data.List
 
 -- Runtime - setting up stack and variables -- Something like this for the stack?
-runtime = "#include <stdio.h>\n#include <stdlib.h>\n#define STACK_SIZE 32\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(float var)\n{if (stackpointer >= STACK_SIZE){printf(\"Stack overflow (push)\");exit(1);}stack[stackpointer] = var;stackpointer++;}float pop() {if (stackpointer == 0){printf(\"Stack underflow (pop)\");exit(1);}stackpointer--;return stack[stackpointer];}float peek() {if (stackpointer == 0){printf(\"Stack underflow (peek)\");exit(1);}return stack[stackpointer];}float "
+header = "#include <stdio.h>\n#include <stdlib.h>\n#define STACK_SIZE "
+runtime = "\nint main(){float stack[STACK_SIZE];int stackpointer = 0;void push(float var)\n{if (stackpointer >= STACK_SIZE){printf(\"Stack overflow (push)\");exit(1);}stack[stackpointer] = var;stackpointer++;}float pop() {if (stackpointer == 0){printf(\"Stack underflow (pop)\");exit(1);}stackpointer--;return stack[stackpointer];}float peek() {if (stackpointer == 0){printf(\"Stack underflow (peek)\");exit(1);}return stack[stackpointer];}float "
 
 
 toC':: ProgramTree -> Code
+toC' ((Function STACK [Number number]):tree) =
+ let (code,var) = toC ([],[]) tree
+ in header ++ (getData number) ++ runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
 toC' tree = 
  let (code,var) = toC ([],[]) tree
- in  runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
+ in  header ++ "32" ++ runtime ++ (unwords (intersperse "," var)) ++ ";" ++ code
 
 toC :: (Code, Variables) -> ProgramTree -> (Code, Variables)
 toC (code, var) [] = (code ++ "}",var)
@@ -46,8 +50,8 @@ toC (code, var) ( Function PRINT ((Ident (Token ident IDENT)):[] ):tree) =
 -- INPUT Function --
 toC (code, var) ( Function INPUT ((Ident (Token ident IDENT)):[] ):tree) = 
  let addCode = "scanf(\"%f\", &" ++ ident ++ ");"
-     addVar  = ident
- in  toC (code ++ addCode, addVar:var) tree
+     finalVar  = if ident `elem` var then var else ident:var
+ in  toC (code ++ addCode, finalVar) tree
 
 -- LABEL Function --
 toC (code, var) ( Function LABEL ((Ident (Token ident IDENT)):[] ):tree) =

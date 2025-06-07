@@ -27,6 +27,8 @@ data TokenType = EOF
                | POP
                | PUSH
                | PEEK
+               | SET
+               | STACK
                
                | EQU 
                | PLUS 
