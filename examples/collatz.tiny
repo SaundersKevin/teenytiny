@@ -1,11 +1,11 @@
+# SET acts like "#define" in C. This has to be placed at the very top of your .tiny file
 SET evenNumber 2
 SET oddNumber 1
-# SET acts like "#define" in C. This has to be placed at the very top of your .tiny file before ANYTHING
 
 # Printing statements is handled by PRINT string
 PRINT "Enter a number:"
-# Taking input is handled by INPUT variable_to_assign
-# As of <=1.1.0 INPUT has to be assigned to a new variable
+
+# Taking input is handled by INPUT variable_to_assign. This will only take a number as input
 INPUT num
 
 PRINT "Here is the collatz sequence for your number:"

@@ -14,7 +14,8 @@ checkSet :: [[Token]] -> (Definitions,[[Token]])
 checkSet (((Token "SET" SET):var:val:_):tokens) = 
  let (definitions,tokenList) = checkSet tokens
  in  ((var,val):definitions,tokenList)
-checkSet (_:tokens) = ([],tokens)
+checkSet ([]:tokens) = checkSet tokens
+checkSet (tokens) = ([],tokens)
 
 insertSet :: Definitions -> [Token] -> [Token]
 insertSet _ [] = []

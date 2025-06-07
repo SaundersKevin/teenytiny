@@ -19,16 +19,12 @@ toProgramTree tree ((headToken:params):tokenList) =
   (Token _ POP)   -> let (function, remainingTokens) = popFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
   (Token _ PUSH)  -> let (function, remainingTokens) = pushFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
   (Token _ PEEK)  -> let (function, remainingTokens) = peekFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
-  (Token _ SET)   -> let (function, remainingTokens) = setFunc (params:tokenList) in toProgramTree (tree ++ function) remainingTokens
 --_               -> Exeption "Failed in Parsing. Bad keyword?"
 -- Function -- Token is the first of the line (the command token)
 
 -- The returned function will take so many lines of the list to parse,
 -- parse them, and append the Function to the ProgramTree and return the rest of the
 -- tokens
-
-setFunc :: [[Token]] -> ([Function], [[Token]])
-setFunc ((varType:value:_):remainingTokens) = ([Function SET [Ident varType, Number value]], remainingTokens)
 
 popFunc :: [[Token]] -> ([Function], [[Token]])
 popFunc ((ident:_):remainingTokens) = ([Function POP [Ident ident]], remainingTokens)
