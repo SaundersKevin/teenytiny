@@ -2,6 +2,9 @@
 SET evenNumber 2
 SET oddNumber 1
 
+# Removes the stack from the program file
+STACK 0
+
 # Printing statements is handled by PRINT string
 PRINT "Enter a number:"
 
